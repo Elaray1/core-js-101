@@ -20,8 +20,14 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  const obj = {};
+  obj.width = width;
+  obj.height = height;
+  obj.getArea = () => {
+    return width * height;
+  };
+  return obj;
 }
 
 
@@ -35,8 +41,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +57,10 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const object = JSON.parse(json);
+  const values = Object.values(object);
+  return new proto.constructor(...values);
 }
 
 
@@ -110,35 +118,80 @@ function fromJSON(/* proto, json */) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
-  },
+ const cssSelectorBuilder = {
+   string: '',
+   flags: [false, false, false, false, false, false],
 
-  id(/* value */) {
-    throw new Error('Not implemented');
-  },
+   cloneInstance(obj, order) {
+     const newInstance = { ...obj };
+     newInstance.flags = obj.flags.slice();
+     newInstance.flags[order] = true;
+     return newInstance;
+   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
-  },
+   checkFlags(order, checkCall) {
+     if (checkCall && this.flags[order]) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
-  },
+     for (let i = order + 1; i < this.flags.length; i += 1) {
+       if (this.flags[i]) throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+     }
+   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
-  },
+   element(value) {
+     this.checkFlags(0, true);
+     const newInstance = this.cloneInstance(this, 0);
+     newInstance.string += value;
+     return newInstance;
+   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
-  },
+   id(value) {
+     this.checkFlags(1, true);
+     const newInstance = this.cloneInstance(this, 1);
+     newInstance.string += `#${value}`;
+     return newInstance;
+   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
-  },
-};
+   class(value) {
+     this.checkFlags(2);
+     const newInstance = this.cloneInstance(this, 2);
+     newInstance.string += `.${value}`;
+     return newInstance;
+   },
+
+   attr(value) {
+     this.checkFlags(3);
+     const newInstance = this.cloneInstance(this, 3);
+     newInstance.string += `[${value}]`;
+     return newInstance;
+   },
+
+   pseudoClass(value) {
+     this.checkFlags(4);
+     const newInstance = this.cloneInstance(this, 4);
+     newInstance.string += `:${value}`;
+     return newInstance;
+   },
+
+   pseudoElement(value) {
+     this.checkFlags(5, true);
+     const newInstance = this.cloneInstance(this, 5);
+     newInstance.string += `::${value}`;
+     return newInstance;
+   },
+
+   combine(selector1, combinator, selector2) {
+     const str1 = selector1.stringify();
+     const str2 = selector2.stringify();
+     this.string = `${str1} ${combinator} ${str2}`;
+     return this;
+   },
+
+   stringify() {
+     const result = this.string;
+     this.string = '';
+     return result;
+   },
+ };
 
 
 module.exports = {

@@ -31,9 +31,9 @@
  *
  * @return {RegExp}
  */
-function getRegexForGuid() {
-  throw new Error('Not implemented');
-}
+ function getRegexForGuid() {
+   return /{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}$/;
+ }
 
 
 /**
@@ -53,9 +53,9 @@ function getRegexForGuid() {
  * @return {RegExp}
  *
  */
-function getRegexForPitSpot() {
-  throw new Error('Not implemented');
-}
+ function getRegexForPitSpot() {
+   return /p.t/;
+ }
 
 
 /**
@@ -78,9 +78,10 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(/* minLength */) {
-  throw new Error('Not implemented');
-}
+ function getPasswordValidator(minLength) {
+   const re = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-z0-9A-Z]{${minLength},}`);
+   return re;
+ }
 
 
 module.exports = {
