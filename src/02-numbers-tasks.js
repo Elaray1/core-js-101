@@ -71,7 +71,7 @@ function getAverage(a, b) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt((x1 - x2)**2 + (y1 - y2)**2);
+  return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 }
 
 /**
@@ -159,7 +159,7 @@ function parseNumberFromString(v) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  return Math.sqrt(a**2 + b**2 + c**2);
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -180,15 +180,16 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  let a = '1'
-  for (let i = 0; i < pow; i++) {
+  let num1 = num;
+  let a = '1';
+  for (let i = 0; i < pow; i += 1) {
     a += '0';
   }
-  num = Math.round(num / Number(a));
-  for (let i = 0; i < pow; i++) {
-    num += '0';
+  num1 = Math.round(num / Number(a));
+  for (let i = 0; i < pow; i += 1) {
+    num1 += '0';
   }
-  return num;
+  return num1;
 }
 
 /**
@@ -229,11 +230,9 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
- function toNumber(val, def) {
-   val = Number(val);
-   if (isNaN(val)) return def;
-   return val;
- }
+function toNumber(val, def) {
+  return Number(val) || def;
+}
 
 module.exports = {
   getRectangleArea,

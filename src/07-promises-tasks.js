@@ -96,27 +96,27 @@ function getFastestPromise(array) {
  *    });
  *
  */
- function chainPromises(array, action) {
-   const result = [];
-   const errorLog = [];
+function chainPromises(array, action) {
+  const result = [];
+  const errorLog = [];
 
-   async function resolveRecursively(arr, index = 0) {
-     if (index === arr.length) return result;
+  async function resolveRecursively(arr, index = 0) {
+    if (index === arr.length) return result;
 
-     try {
-       const res = await arr[index];
-       result.push(res);
-     } catch (err) { errorLog.push(err); }
+    try {
+      const res = await arr[index];
+      result.push(res);
+    } catch (err) { errorLog.push(err); }
 
-     await resolveRecursively(arr, index + 1);
+    await resolveRecursively(arr, index + 1);
 
-     return result;
-   }
+    return result;
+  }
 
-   return new Promise((resolve) => {
-     resolveRecursively(array).then((resArr) => resolve(resArr.reduce(action)));
-   });
- }
+  return new Promise((resolve) => {
+    resolveRecursively(array).then((resArr) => resolve(resArr.reduce(action)));
+  });
+}
 
 module.exports = {
   willYouMarryMe,

@@ -64,17 +64,17 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
- function getPolynom(...args) {
-   return (x) => {
-     let result = 0;
+function getPolynom(...args) {
+  return (x) => {
+    let result = 0;
 
-     for (let i = 0; i < args.length; i += 1) {
-       result += args[args.length - 1 - i] * x ** i;
-     }
+    for (let i = 0; i < args.length; i += 1) {
+      result += args[args.length - 1 - i] * x ** i;
+    }
 
-     return result;
-   };
- }
+    return result;
+  };
+}
 
 
 /**
@@ -91,13 +91,13 @@ function getPowerFunction(exponent) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
- function memoize(func) {
-   const number = func();
-   return () => number;
- }
+function memoize(func) {
+  const number = func();
+  return () => number;
+}
 
 
- /**
+/**
   * Returns the function trying to call the passed function and if it throws,
   * retrying it specified number of attempts.
   *
@@ -112,22 +112,22 @@ function getPowerFunction(exponent) {
   * }, 2);
   * retryer() => 2
   */
- function retry(func, attempts) {
-   const error = [];
-   return () => {
-     for (let i = 0; i < attempts; i += 1) {
-       try {
-         return func();
-       } catch (err) {
-         error.push(err);
-       }
-     }
-     return null;
-   };
- }
+function retry(func, attempts) {
+  const error = [];
+  return () => {
+    for (let i = 0; i < attempts; i += 1) {
+      try {
+        return func();
+      } catch (err) {
+        error.push(err);
+      }
+    }
+    return null;
+  };
+}
 
 
- /**
+/**
   * Returns the logging wrapper for the specified method,
   * Logger has to log the start and end of calling the specified function.
   * Logger has to log the arguments of invoked function.
@@ -151,20 +151,20 @@ function getPowerFunction(exponent) {
   *
   */
 
- function logger(func, logFunc) {
-   return (...args) => {
-     const argsRes = JSON.stringify(args).slice(1, -1);
-     logFunc(`${func.name}(${argsRes}) starts`);
+function logger(func, logFunc) {
+  return (...args) => {
+    const argsRes = JSON.stringify(args).slice(1, -1);
+    logFunc(`${func.name}(${argsRes}) starts`);
 
-     const res = func(...args);
-     logFunc(`${func.name}(${argsRes}) ends`);
+    const res = func(...args);
+    logFunc(`${func.name}(${argsRes}) ends`);
 
-     return res;
-   };
- }
+    return res;
+  };
+}
 
 
- /**
+/**
   * Return the function with partial applied arguments
   *
   * @param {Function} fn
@@ -177,12 +177,12 @@ function getPowerFunction(exponent) {
   *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
   *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
   */
- function partialUsingArguments(fn, ...args1) {
-   return (...args2) => fn(...args1, ...args2);
- }
+function partialUsingArguments(fn, ...args1) {
+  return (...args2) => fn(...args1, ...args2);
+}
 
 
- /**
+/**
   * Returns the id generator function that returns next integer starting
   * from specified number every time when invoking.
   *
@@ -199,22 +199,22 @@ function getPowerFunction(exponent) {
   *   getId4() => 7
   *   getId10() => 11
   */
- function getIdGeneratorFunction(startFrom) {
-   let counter = startFrom - 1;
-   return () => {
-     counter += 1;
-     return counter;
-   };
- }
+function getIdGeneratorFunction(startFrom) {
+  let counter = startFrom - 1;
+  return () => {
+    counter += 1;
+    return counter;
+  };
+}
 
 
- module.exports = {
-   getComposition,
-   getPowerFunction,
-   getPolynom,
-   memoize,
-   retry,
-   logger,
-   partialUsingArguments,
-   getIdGeneratorFunction,
- };
+module.exports = {
+  getComposition,
+  getPowerFunction,
+  getPolynom,
+  memoize,
+  retry,
+  logger,
+  partialUsingArguments,
+  getIdGeneratorFunction,
+};

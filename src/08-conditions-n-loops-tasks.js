@@ -49,7 +49,7 @@ function getFizzBuzz(num) {
 function getFactorial(n) {
   let a = 1;
   for (let i = 1; i <= n; i += 1) {
-     a *= i;
+    a *= i;
   }
   return a;
 }
@@ -69,9 +69,10 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
   let a = 0;
-  while (n1 <= n2) {
-    a += n1;
-    n1 += 1;
+  let n11 = n1;
+  while (n11 <= n2) {
+    a += n11;
+    n11 += 1;
   }
   return a;
 }
@@ -211,12 +212,14 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  if (a > b) {
-    const t = a;
-    a = b;
-    b = t;
+  let a1 = a;
+  let b1 = b;
+  if (a1 > b1) {
+    const t = a1;
+    a1 = b1;
+    b1 = t;
   }
-  return `${isStartIncluded ? '[' : '('}${a}, ${b}${isEndIncluded ? ']' : ')'}`;
+  return `${isStartIncluded ? '[' : '('}${a1}, ${b1}${isEndIncluded ? ']' : ')'}`;
 }
 
 
@@ -274,19 +277,19 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
- function isCreditCardNumber(ccn) {
-   ccn = String(ccn).split('');
-   let i = ccn.length % 2 === 0 ? 0 : 1;
-   let sum = 0;
-   for (let j = 0; j < ccn.length; j += 1) {
-     if (i === j) {
-       ccn[j] = +ccn[j] * 2; i += 2;
-     }
-     if (ccn[j] > 9) ccn[j] -= 9;
-     sum += +ccn[j];
-   }
-   return sum % 10 === 0;
- }
+function isCreditCardNumber(ccn) {
+  const ccn1 = String(ccn).split('');
+  let i = ccn1.length % 2 === 0 ? 0 : 1;
+  let sum = 0;
+  for (let j = 0; j < ccn1.length; j += 1) {
+    if (i === j) {
+      ccn1[j] = +ccn1[j] * 2; i += 2;
+    }
+    if (ccn1[j] > 9) ccn1[j] -= 9;
+    sum += +ccn1[j];
+  }
+  return sum % 10 === 0;
+}
 
 /**
  * Returns the digital root of integer:
@@ -302,13 +305,13 @@ function reverseInteger(num) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
- function getDigitalRoot(num) {
-   let sum = String(num).split('').reduce((acc, val) => acc + +val, 0);
-   while (sum > 9) {
-     sum = String(sum).split('').reduce((acc, val) => acc + +val, 0);
-   }
-   return sum;
- }
+function getDigitalRoot(num) {
+  let sum = String(num).split('').reduce((acc, val) => acc + +val, 0);
+  while (sum > 9) {
+    sum = String(sum).split('').reduce((acc, val) => acc + +val, 0);
+  }
+  return sum;
+}
 
 
 /**
@@ -332,23 +335,23 @@ function reverseInteger(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
- function isBracketsBalanced(str) {
-   const brackets = ['[', ']', '{', '}', '(', ')', '<', '>'];
-   const stack = [];
+function isBracketsBalanced(str) {
+  const brackets = ['[', ']', '{', '}', '(', ')', '<', '>'];
+  const stack = [];
 
-   for (let i = 0; i < str.length; i += 1) {
-     const index = brackets.indexOf(str[i]);
-     if (index % 2 === 0) {
-       stack.push(str[i]);
-     } else if (stack[stack.length - 1] === brackets[index - 1]) {
-       stack.pop();
-     } else return false;
-   }
+  for (let i = 0; i < str.length; i += 1) {
+    const index = brackets.indexOf(str[i]);
+    if (index % 2 === 0) {
+      stack.push(str[i]);
+    } else if (stack[stack.length - 1] === brackets[index - 1]) {
+      stack.pop();
+    } else return false;
+  }
 
-   return !stack.length;
- }
+  return !stack.length;
+}
 
- /**
+/**
   * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
   * representation of specified number.
   * See more about
@@ -368,12 +371,12 @@ function reverseInteger(num) {
   *    365, 4  => '11231'
   *    365, 10 => '365'
   */
- function toNaryString(num, n) {
-   return num.toString(n);
- }
+function toNaryString(num, n) {
+  return num.toString(n);
+}
 
 
- /**
+/**
   * Returns the commom directory path for specified array of full filenames.
   *
   * @param {array} pathes
@@ -385,33 +388,33 @@ function reverseInteger(num) {
   *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
   *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
   */
- function getCommonDirectoryPath(paths) {
-   function isShared(pathsArr, index) {
-     let flag = true;
+function getCommonDirectoryPath(paths) {
+  function isShared(pathsArr, index) {
+    let flag = true;
 
-     pathsArr.reduce((pathMaster, pathRest) => {
-       if (pathMaster[index] !== pathRest[index]) flag = false;
-       return pathMaster;
-     });
+    pathsArr.reduce((pathMaster, pathRest) => {
+      if (pathMaster[index] !== pathRest[index]) flag = false;
+      return pathMaster;
+    });
 
-     return flag;
-   }
+    return flag;
+  }
 
-   const result = [];
-   const pathsArr = [];
+  const result = [];
+  const pathsArr = [];
 
-   paths.forEach((path) => pathsArr.push(path.split('/')));
-   pathsArr.forEach((path) => path[0].replace('', '/'));
+  paths.forEach((path) => pathsArr.push(path.split('/')));
+  pathsArr.forEach((path) => path[0].replace('', '/'));
 
-   pathsArr[0].forEach((dir, index) => {
-     if (isShared(pathsArr, index)) result.push(dir);
-   });
+  pathsArr[0].forEach((dir, index) => {
+    if (isShared(pathsArr, index)) result.push(dir);
+  });
 
-   return `${result.join('/')}${result.length ? '/' : ''}`;
- }
+  return `${result.join('/')}${result.length ? '/' : ''}`;
+}
 
 
- /**
+/**
   * Returns the product of two specified matrixes.
   * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
   *
@@ -429,32 +432,32 @@ function reverseInteger(num) {
   *                         [ 6 ]]
   *
   */
- function getMatrixProduct(m1, m2) {
-   const result = [];
+function getMatrixProduct(m1, m2) {
+  const result = [];
 
-   function number(mat1, mat2, j) {
-     let dotProduct = 0;
+  function number(mat1, mat2, j) {
+    let dotProduct = 0;
 
-     mat1.forEach((value, index) => {
-       dotProduct += value * mat2[index][j];
-     });
+    mat1.forEach((value, index) => {
+      dotProduct += value * mat2[index][j];
+    });
 
-     return dotProduct;
-   }
+    return dotProduct;
+  }
 
-   for (let i = 0; i < m1.length; i += 1) {
-     result.push([]);
+  for (let i = 0; i < m1.length; i += 1) {
+    result.push([]);
 
-     for (let j = 0; j < m2[0].length; j += 1) {
-       result[i].push(number(m1[i], m2, j));
-     }
-   }
+    for (let j = 0; j < m2[0].length; j += 1) {
+      result[i].push(number(m1[i], m2, j));
+    }
+  }
 
-   return result;
- }
+  return result;
+}
 
 
- /**
+/**
   * Returns the evaluation of the specified tic-tac-toe position.
   * See the details: https://en.wikipedia.org/wiki/Tic-tac-toe
   *
@@ -484,48 +487,48 @@ function reverseInteger(num) {
   *    [    ,   ,    ]]
   *
   */
- function evaluateTicTacToePosition(position) {
-   const cost = { X: 1, 0: -1, undefined: 0 };
-   const result = { [position.length]: 'X', [-position.length]: '0' };
+function evaluateTicTacToePosition(position) {
+  const cost = { X: 1, 0: -1, undefined: 0 };
+  const result = { [position.length]: 'X', [-position.length]: '0' };
 
-   let lineD1 = 0;
-   let lineD2 = 0;
+  let lineD1 = 0;
+  let lineD2 = 0;
 
-   for (let y = 0; y < position.length; y += 1) {
-     let lineX = 0;
-     let lineY = 0;
+  for (let y = 0; y < position.length; y += 1) {
+    let lineX = 0;
+    let lineY = 0;
 
-     for (let x = 0; x < position.length; x += 1) {
-       lineX += cost[position[y][x]];
-       lineY += cost[position[x][y]];
-     }
-     if (result[lineX]) return result[lineX];
-     if (result[lineY]) return result[lineY];
+    for (let x = 0; x < position.length; x += 1) {
+      lineX += cost[position[y][x]];
+      lineY += cost[position[x][y]];
+    }
+    if (result[lineX]) return result[lineX];
+    if (result[lineY]) return result[lineY];
 
-     lineD1 += cost[position[y][y]];
-     lineD2 += cost[position[y][position.length - 1 - y]];
-   }
+    lineD1 += cost[position[y][y]];
+    lineD2 += cost[position[y][position.length - 1 - y]];
+  }
 
-   return result[lineD1] || result[lineD2];
- }
+  return result[lineD1] || result[lineD2];
+}
 
 
- module.exports = {
-   getFizzBuzz,
-   getFactorial,
-   getSumBetweenNumbers,
-   isTriangle,
-   doRectanglesOverlap,
-   isInsideCircle,
-   findFirstSingleChar,
-   getIntervalString,
-   reverseString,
-   reverseInteger,
-   isCreditCardNumber,
-   getDigitalRoot,
-   isBracketsBalanced,
-   toNaryString,
-   getCommonDirectoryPath,
-   getMatrixProduct,
-   evaluateTicTacToePosition,
- };
+module.exports = {
+  getFizzBuzz,
+  getFactorial,
+  getSumBetweenNumbers,
+  isTriangle,
+  doRectanglesOverlap,
+  isInsideCircle,
+  findFirstSingleChar,
+  getIntervalString,
+  reverseString,
+  reverseInteger,
+  isCreditCardNumber,
+  getDigitalRoot,
+  isBracketsBalanced,
+  toNaryString,
+  getCommonDirectoryPath,
+  getMatrixProduct,
+  evaluateTicTacToePosition,
+};
