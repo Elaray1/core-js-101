@@ -75,9 +75,7 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  return arr.filter((el) => {
-    return el > 0;
-  })
+  return arr.filter((el) => el > 0)
 }
 
 /**
@@ -92,9 +90,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccoon' ] => [ 'cat', 'dog', 'raccoon' ]
  */
 function getArrayOfStrings(arr) {
-  return arr.filter((el) => {
-    return typeof el === 'string';
-  })
+  return arr.filter((el) => typeof el === 'string')
 }
 
 /**
@@ -421,7 +417,7 @@ function getItemsSum(arr) {
 function getFalsyValuesCount(arr) {
   if (arr.length === 0) return 0;
   return arr.reduce((counter, el) => {
-    if (!Boolean(el)) counter++;
+    if (!el) counter++;
     return counter;
   }, 0);
 }

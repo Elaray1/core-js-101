@@ -26,11 +26,5 @@ module.exports = {
     'no-proto': 0,
     "comma-spacing": 0,
     "prefer-template": 0,
-    "no-restricted-globals": 0,
-    "arrow-body-style": 0,
-    "no-extra-boolean-cast": 0,
-    "quotes": 0,
-    "no-const-assign": 0,
-    "radix": 0,
   },
 };

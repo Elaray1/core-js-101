@@ -88,18 +88,18 @@ function parseDataFromIso8601(value) {
    startDate = +new Date(startDate);
    endDate = +new Date(endDate);
    const duration = endDate - startDate;
-   let milliseconds = parseInt((duration % 10000) / 1);
+   let milliseconds = parseInt((duration % 10000) / 1, 10);
    milliseconds = milliseconds.toString();
    while (milliseconds.length < 3) {
-     milliseconds += "0";
+     milliseconds += '0';
    }
    let seconds = Math.floor((duration / 1000) % 60);
    let minutes = Math.floor((duration / (1000 * 60)) % 60);
    let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-   hours = (hours < 10) ? "0" + hours : hours;
-   minutes = (minutes < 10) ? "0" + minutes : minutes;
-   seconds = (seconds < 10) ? "0" + seconds : seconds;
-   return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+   hours = (hours < 10) ? '0' + hours : hours;
+   minutes = (minutes < 10) ? '0' + minutes : minutes;
+   seconds = (seconds < 10) ? '0' + seconds : seconds;
+   return hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
  }
 
 
